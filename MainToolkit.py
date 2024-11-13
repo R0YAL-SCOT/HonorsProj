@@ -1,8 +1,15 @@
 #Penetration testing toolkit
 #Author: Andrew Walker
 
+import os
+
+def main():
+    nmap()
+    
+
+
 def nmap():
-    runNmap='nmap --open -A -Pn -sT -T'+str(timing)+' '+str(ipaddress)+' -oX '+chr(34)+filename+chr(34)
+    runNmap='nmap --open -A -Pn -sT -T'+str()+' '+str()+' -oX '+chr(34)++chr(34)
 
     print(runNmap)
     exit_code = os.system(runNmap)
