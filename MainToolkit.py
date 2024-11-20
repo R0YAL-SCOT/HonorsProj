@@ -10,6 +10,39 @@ def main():
 
 
     #user input using params
+    #Command line arguments creation and declaration
+    parser = argparse.ArgumentParser(description="Python Penetration Testing Toolkit for Windows, Version: 1")
+
+    parser.add_argument("-t", metavar="target", required=True,
+                        help="Network Address range")
+    parser.add_argument("-T", type=int, choices=[0, 1, 2, 3, 4, 5], required=True, 
+                        help="Enter timing value for Nmap (0-5)")
+    parser.add_argument("-n", metavar="filename", required=True,
+                        help="Nmap ouput file name")
+    
+    #add and change next args
+    parser.add_argument("-u", metavar="username", required=True,
+                        help="Username for Nessus")
+    #group creation so at least one password option is used but not both
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-P", metavar="password",
+                        help="Password for Nessus")
+    group.add_argument("-p", action="store_true", 
+                        help="Interactively prompt for Nessus password")
+    args = parser.parse_args()
+
+    if args.p:
+        password = getpass("Enter Nessus password: ")
+    else:
+        password = args.P
+
+    ipaddress = args.t
+    timing = args.T
+    filename = args.n
+    username = args.u
+
+
+
 
     nmap()
     openVAS()
