@@ -6,9 +6,9 @@ from getpass import getpass
 import argparse
 import os
 
-def main():
+def flags():
 
-
+    '''
     #user input using params
     #Command line arguments creation and declaration
     parser = argparse.ArgumentParser(description="Python Penetration Testing Toolkit for Windows, Version: 1")
@@ -42,13 +42,7 @@ def main():
     username = args.u
 
 
-
-
-    nmap()
-    openVAS()
-    metasploit()
-
-    
+    '''
 
 
 def nmap():
@@ -56,7 +50,7 @@ def nmap():
     #speed, ip address and file type
     #might be too much information in nmap scan
     runNmap='nmap --script vuln --open -A -Pn -sT -T'+str()+' '+str()+' -oX '+chr(34)++chr(34)
-
+'''
     print(runNmap)
     exit_code = os.system(runNmap)
     exit_status = exit_code >> 8
@@ -65,13 +59,12 @@ def nmap():
     exit(1)
 
     print("Info: Output can be found in " + filename)
+'''
+
 
 def openVAS():
 
     runOpenVAS=''
-
-
-
 
 
 def metasploit():
@@ -87,3 +80,8 @@ def metasploit():
     #run the auxillary PoC scanner using the input data from the user
     runMSF='rpc.call("module.execute", "auxillary", "put scanner here", {"put required data here, host, port, etc"})'
     
+    
+if __name__=="__main__":
+     nmap()
+    #openVAS()
+    #metasploit()
