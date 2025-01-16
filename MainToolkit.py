@@ -11,14 +11,10 @@ def flags():
     #Command line arguments creation and declaration
     parser = argparse.ArgumentParser(description="Python Penetration Testing Toolkit for Windows, Version: 1")
 
-    parser.add_argument("-O", metavar="target", required=False,
-                        help="Use OpenVAS")
-    parser.add_argument("-B", metasploit="target" required=False, 
-                        help="Use BloodHound")
-    parser.add_argument("-N", metavar="target", required=False,
-                        help="Use Nmap")
-    parser.add_argument("-I", metavar="target", required=True,
-                        help="IP address or address range to be tested")
+    parser.add_argument("-O", metavar="target", required=False, help="Use OpenVAS")
+    parser.add_argument("-B", metavar="target", required=False, help="Use BloodHound")
+    parser.add_argument("-N", metavar="target", required=False, help="Use Nmap")
+    parser.add_argument("-I", metavar="target", required=True, help="IP address or address range to be tested")
     
     
     args = parser.parse_args()
