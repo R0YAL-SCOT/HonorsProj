@@ -53,10 +53,12 @@ def nmap():
 
 def openVAS():
 
+    print("openVAS")
     #do something here
 
 def bloodhound():
     
+    print("bloodhound")
     #do something here
 
 def metasploit():
