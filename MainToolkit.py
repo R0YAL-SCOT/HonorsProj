@@ -8,41 +8,30 @@ import os
 
 def flags():
 
-    '''
     #user input using params
     #Command line arguments creation and declaration
     parser = argparse.ArgumentParser(description="Python Penetration Testing Toolkit for Windows, Version: 1")
 
-    parser.add_argument("-t", metavar="target", required=True,
-                        help="Network Address range")
-    parser.add_argument("-T", type=int, choices=[0, 1, 2, 3, 4, 5], required=True, 
-                        help="Enter timing value for Nmap (0-5)")
-    parser.add_argument("-n", metavar="filename", required=True,
-                        help="Nmap ouput file name")
+    parser.add_argument("-O", metavar="target", required=False,
+                        help="Use OpenVAS")
+    parser.add_argument("-B", metasploit="target" required=False, 
+                        help="Use BloodHound")
+    parser.add_argument("-N", metavar="target", required=False,
+                        help="Use Nmap")
+    parser.add_argument("-I", metavar="target", required=True,
+                        help="IP address or address range to be tested")
     
-    #add and change next args
-    parser.add_argument("-u", metavar="username", required=True,
-                        help="Username for Nessus")
-    #group creation so at least one password option is used but not both
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("-P", metavar="password",
-                        help="Password for Nessus")
-    group.add_argument("-p", action="store_true", 
-                        help="Interactively prompt for Nessus password")
+    
     args = parser.parse_args()
 
-    if args.p:
-        password = getpass("Enter Nessus password: ")
-    else:
-        password = args.P
+    if args.O:
+        openVAS()
+    
+    if args.B:
+        bloodhound()
 
-    ipaddress = args.t
-    timing = args.T
-    filename = args.n
-    username = args.u
-
-
-    '''
+    if args.N:
+        nmap()
 
 
 def nmap():
@@ -64,8 +53,11 @@ def nmap():
 
 def openVAS():
 
-    runOpenVAS=''
+    #do something here
 
+def bloodhound():
+    
+    #do something here
 
 def metasploit():
 
@@ -82,6 +74,9 @@ def metasploit():
     
     
 if __name__=="__main__":
-    nmap()
+    flags()
+    
+    
+    #nmap()
     #openVAS()
     #metasploit()
