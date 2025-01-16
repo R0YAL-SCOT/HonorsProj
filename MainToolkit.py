@@ -1,6 +1,5 @@
 #Penetration testing toolkit
 #Author: Andrew Walker
-#my comment!
 
 from getpass import getpass
 import argparse
