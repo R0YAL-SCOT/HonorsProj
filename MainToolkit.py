@@ -83,5 +83,5 @@ def metasploit():
     
 if __name__=="__main__":
     nmap()
-    openVAS()
-    metasploit()
+    #openVAS()
+    #metasploit()
