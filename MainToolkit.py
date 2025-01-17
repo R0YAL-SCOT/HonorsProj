@@ -11,30 +11,36 @@ def flags():
     #Command line arguments creation and declaration
     parser = argparse.ArgumentParser(description="Python Penetration Testing Toolkit for Windows, Version: 1")
 
-    parser.add_argument("-O", metavar="target", required=False, help="Use OpenVAS")
-    parser.add_argument("-B", metavar="target", required=False, help="Use BloodHound")
-    parser.add_argument("-N", metavar="target", required=False, help="Use Nmap")
-    parser.add_argument("-I", metavar="target", required=True, help="IP address or address range to be tested")
-    
-    
+    parser.add_argument("-O", metavar="function", required=False, help="Use OpenVAS")
+    parser.add_argument("-B", metavar="function", required=False, help="Use BloodHound")
+    parser.add_argument("-N", metavar="function", required=False, help="Use Nmap")
+    parser.add_argument("-i", metavar="target", required=True, help="IP address or address range to be tested")
+    parser.add_argument("-fN", metavar="file", required=True, help="Name of the output file for Nmap")
+    parser.add_argument("-fO", metavar="file", required=True, help="Name of the output file for OpenVAS")
+    parser.add_argument("-fB", metavar="file", required=True, help="Name of the output file for Bloodhound")
+
     args = parser.parse_args()
+    ipaddress = args.i
+    nmapFileName = args.fN
+    openvasFileName = args.fO
+    bloodhoundFileName = args.fB
 
     if args.O:
-        openVAS()
+        openVAS(ipaddress, openvasFileName)
     
     if args.B:
-        bloodhound()
+        bloodhound(ipaddress, bloodhoundFileName)
 
     if args.N:
-        nmap()
+        nmap(ipaddress, nmapFileName)
 
 
-def nmap():
+def nmap(ipaddress, filename):
     #using script vuln to get CVE codes, use codes to find auxillary scanners in Metasploit
     #speed, ip address and file type
     #might be too much information in nmap scan
-    runNmap='nmap --script vuln --open -A -Pn -sT -T'+str()+' '+str()+' -oX '+chr(34)++chr(34)
-'''
+    runNmap='nmap --script vuln --open -A -Pn -sT '+str(ipaddress)+' -oG '+chr(34)+filename+chr(34)
+
     print(runNmap)
     exit_code = os.system(runNmap)
     exit_status = exit_code >> 8
@@ -43,19 +49,20 @@ def nmap():
     exit(1)
 
     print("Info: Output can be found in " + filename)
-'''
 
 
-def openVAS():
+
+def openVAS(ipaddress, filename):
 
     print("openVAS")
     #do something here
 
-def bloodhound():
+def bloodhound(ipaddress, filename):
     
     print("bloodhound")
     #do something here
 
+'''
 def metasploit():
 
     #start with finding nmap file and using reg ex to find CVE codes
@@ -69,7 +76,8 @@ def metasploit():
     #run the auxillary PoC scanner using the input data from the user
     runMSF='rpc.call("module.execute", "auxillary", "put scanner here", {"put required data here, host, port, etc"})'
     
-    
+'''
+
 if __name__=="__main__":
     flags()
     
