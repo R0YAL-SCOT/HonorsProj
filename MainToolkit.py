@@ -39,7 +39,7 @@ def nmap(ipaddress, filename):
     #uses cve script and outputs results into a grepable file
     runNmap='nmap --script vuln --open -A -Pn -sT '+str(ipaddress)+' -oG '+chr(34)+filename+chr(34)
 
-    print(runNmap)
+    #print(runNmap)
     exit_code = os.system(runNmap)
     exit_status = exit_code >> 8
     if exit_status:
@@ -57,6 +57,9 @@ def openVAS(ipaddress, filename):
 
 def bloodhound(ipaddress, filename):
     
+    #download bloodhound ce and run using os library
+    #system needs to pip install or git clone bloodhound-ce before it can be used
+    #the script could do it for the user but unsure
     print("bloodhound")
     #do something here
 
