@@ -36,9 +36,7 @@ def flags():
 
 
 def nmap(ipaddress, filename):
-    #using script vuln to get CVE codes, use codes to find auxillary scanners in Metasploit
-    #speed, ip address and file type
-    #might be too much information in nmap scan
+    #uses cve script and outputs results into a grepable file
     runNmap='nmap --script vuln --open -A -Pn -sT '+str(ipaddress)+' -oG '+chr(34)+filename+chr(34)
 
     print(runNmap)
