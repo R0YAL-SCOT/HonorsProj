@@ -61,6 +61,10 @@ def bloodhound(ipaddress, filename):
     #system needs to pip install or git clone bloodhound-ce before it can be used
     #the script could do it for the user but unsure
     print("bloodhound")
+    
+    #requests pdf report of previous scan by report_id
+    os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/pdf-report.gmp.py <report_id> <pdf_file>')
+
     #do something here
 
 '''
