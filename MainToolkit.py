@@ -51,22 +51,23 @@ def nmap(ipaddress, filename):
 
 
 def openVAS(ipaddress, filename):
+    #start the gvm system
+    os.system('gvm start')
 
-    print("openVAS")
-    #do something here
+    #create task and start
+    #use a script to run a certain script for vulnerability scan
+    
+    #requests pdf report of previous scan by report_id
+    os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/pdf-report.gmp.py <report_id> <pdf_file>')
+
 
 def bloodhound(ipaddress, filename):
     
     #download bloodhound ce and run using os library
     #system needs to pip install or git clone bloodhound-ce before it can be used
     #the script could do it for the user but unsure
-    print("bloodhound")
+    print()
     
-    #requests pdf report of previous scan by report_id
-    os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/pdf-report.gmp.py <report_id> <pdf_file>')
-
-    #do something here
-
 '''
 def metasploit():
 
