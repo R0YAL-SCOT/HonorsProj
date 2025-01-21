@@ -16,7 +16,7 @@ def flags():
     parser.add_argument("-N", metavar="function", required=False, help="Use Nmap")
     parser.add_argument("-i", metavar="target", required=True, help="IP address or address range to be tested")
     parser.add_argument("-fN", metavar="file", required=True, help="Name of the output file for Nmap")
-    parser.add_argument("-fO", metavar="file", required=True, help="Name of the output file for OpenVAS")
+    parser.add_argument("-fO", metavar="file", required=True, help="Name of the output file for gvm")
     parser.add_argument("-fB", metavar="file", required=True, help="Name of the output file for Bloodhound")
 
     args = parser.parse_args()
@@ -26,7 +26,7 @@ def flags():
     bloodhoundFileName = args.fB
 
     if args.O:
-        openVAS(ipaddress, openvasFileName)
+        gvm(ipaddress, openvasFileName)
     
     if args.B:
         bloodhound(ipaddress, bloodhoundFileName)
@@ -50,13 +50,16 @@ def nmap(ipaddress, filename):
 
 
 
-def openVAS(ipaddress, filename):
+def gvm(ipaddress, filename):
+    #need to have gvm scripts from github in the local directory or a full path to them
+    
     #start the gvm system
     os.system('gvm start')
 
     #create task and start
-    #use a script to run a certain script for vulnerability scan
     
+    #use a script to run a certain script for vulnerability scan
+    os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/start-nvt-scan.gmp.py <oid of nvt> <target>')
     #requests pdf report of previous scan by report_id
     os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/pdf-report.gmp.py <report_id> <pdf_file>')
 
