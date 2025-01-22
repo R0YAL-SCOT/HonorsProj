@@ -52,7 +52,9 @@ def nmap(ipaddress, filename):
 
 def gvm(ipaddress, filename):
     #need to have gvm scripts from github in the local directory or a full path to them
-    
+    #run 'python3 -m pip install --user python-gvm' to use the gvm python library
+    #https://github.com/greenbone/python-gvm
+    #https://www.youtube.com/watch?v=J7SrS4qDzM0&t=95s - tutorial
     #start the gvm system
     os.system('gvm start')
 
