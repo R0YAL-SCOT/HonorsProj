@@ -18,6 +18,8 @@ def flags():
     parser.add_argument("-fN", metavar="file", required=True, help="Name of the output file for Nmap")
     parser.add_argument("-fO", metavar="file", required=True, help="Name of the output file for gvm")
     parser.add_argument("-fB", metavar="file", required=True, help="Name of the output file for Bloodhound")
+    parser.add_argument("-u", metavar="username", required=True, help="GVM account username")
+    parser.add_argument("-p", metavar="password", required=True, help="GVM account password")
 
     args = parser.parse_args()
     ipaddress = args.i
@@ -59,7 +61,8 @@ def gvm(ipaddress, filename):
     os.system('gvm start')
 
     #create task and start
-    os.system('gvm-cli tls --gmp-username admin --gmp-password admin --xml "<create_task><name>3000</name>> <target target_id=""></target><scanner id="08b69003-5fc2-4037-a479-93b440211c73"><name>Vulnerability Scan</name><type>2</type></create_task>" --host 127.0.0.1')
+    #no target ID so it creates one
+    os.system('gvm-cli ssh --gmp-username admin --gmp-password admin --xml "<create_task><name>vuln scan</name>><scanner id="08b69003-5fc2-4037-a479-93b440211c73"><name>Vulnerability Scan</name><type>2</type></create_task>" --host 127.0.0.1')
     
     #use a script to run a certain script for vulnerability scan
     os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/start-nvt-scan.gmp.py <oid of nvt> <target>')
