@@ -1,6 +1,7 @@
 #Penetration testing toolkit
 #Author: Andrew Walker
 
+from gvmConnectionScript import connection
 from getpass import getpass
 import argparse
 import os
@@ -62,6 +63,7 @@ def gvm(username, password, ipaddress, filename):
     #start the gvm system
     os.system('gvm start')
 
+    connection(username, password)
     #create task and start
     #no target ID so it creates one
     os.system('gvm-cli ssh --gmp-username '+str(username)+' --gmp-password '+str(password)+' --xml "<create_task><name>vuln scan</name>><scanner id="08b69003-5fc2-4037-a479-93b440211c73"></create_task>" --host '+str(ipaddress)+'')
