@@ -6,11 +6,8 @@ from gvm.transforms import EtreeTransform
 from gvm.xml import pretty_print
 
 
-<<<<<<< HEAD
 def connection(gvmUser, gvmPass):
-=======
-def connection():
->>>>>>> 6f31c2fc5d3ca044da162b25f0262169bc8a6fa3
+
     connection = UnixSocketConnection()
     transform = EtreeTransform()
 
@@ -22,11 +19,8 @@ def connection():
         pretty_print(version)
 
         # Login
-<<<<<<< HEAD
+
         gmp.authenticate(gvmUser, gvmPass)
-=======
-        gmp.authenticate('foo', 'bar')
->>>>>>> 6f31c2fc5d3ca044da162b25f0262169bc8a6fa3
 
         # Retrieve all tasks
         tasks = gmp.get_tasks()
