@@ -26,9 +26,11 @@ def flags():
     nmapFileName = args.fN
     openvasFileName = args.fO
     bloodhoundFileName = args.fB
+    gvmUser = args.u
+    gvmPass = args.p
 
     if args.O:
-        gvm(ipaddress, openvasFileName)
+        gvm(gvmUser, gvmPass, ipaddress, openvasFileName)
     
     if args.B:
         bloodhound(ipaddress, bloodhoundFileName)
@@ -52,7 +54,7 @@ def nmap(ipaddress, filename):
 
 
 
-def gvm(ipaddress, filename):
+def gvm(username, password, ipaddress, filename):
     #need to have gvm scripts from github in the local directory or a full path to them
     #run 'python3 -m pip install --user python-gvm' to use the gvm python library
     #https://github.com/greenbone/python-gvm
@@ -62,7 +64,7 @@ def gvm(ipaddress, filename):
 
     #create task and start
     #no target ID so it creates one
-    os.system('gvm-cli ssh --gmp-username admin --gmp-password admin --xml "<create_task><name>vuln scan</name>><scanner id="08b69003-5fc2-4037-a479-93b440211c73"><name>Vulnerability Scan</name><type>2</type></create_task>" --host 127.0.0.1')
+    os.system('gvm-cli ssh --gmp-username '+str(username)+' --gmp-password '+str(password)+' --xml "<create_task><name>vuln scan</name>><scanner id="08b69003-5fc2-4037-a479-93b440211c73"><name>Vulnerability Scan</name><type>2</type></create_task>" --host 127.0.0.1')
     
     #use a script to run a certain script for vulnerability scan
     os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/start-nvt-scan.gmp.py <oid of nvt> <target>')
