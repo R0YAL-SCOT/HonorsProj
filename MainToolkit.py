@@ -82,6 +82,10 @@ def bloodhound(ipaddress, filename):
 
     #collect all information on domain
     os.system('bloodhound-python -d domain.tld -u username -p password -ns '+str(ipaddress)+' -ns nameserver -c All')
+
+    #output gives json files in working directory
+    #regex file will need to find and grab all json files
+    
     
 '''
 def metasploit():
