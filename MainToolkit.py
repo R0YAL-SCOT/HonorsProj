@@ -66,7 +66,7 @@ def gvm(username, password, ipaddress, filename):
     connection(username, password)
     #create task and start
     #no target ID so it creates one
-    os.system('gvm-cli ssh --gmp-username '+str(username)+' --gmp-password '+str(password)+' --xml "<create_task><name>vuln scan</name>><scanner id="08b69003-5fc2-4037-a479-93b440211c73"></create_task>" --host '+str(ipaddress)+'')
+    os.system('gvm-cli ssh --gmp-username '+str(username)+' --gmp-password '+str(password)+' --xml "<create_task><name>vuln scan</name>><scanner id="08b69003-5fc2-4037-a479-93b440211c73"></create_task>" --host '+str(ipaddress))
     
     #use a script to run a certain script for vulnerability scan
     os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/start-nvt-scan.gmp.py <oid of nvt> <target>')
@@ -79,7 +79,9 @@ def bloodhound(ipaddress, filename):
     #download bloodhound ce and run using os library
     #system needs to pip install or git clone bloodhound-ce before it can be used
     #the script could do it for the user but unsure
-    print()
+
+    #collect all information on domain
+    os.system('bloodhound-python -c All -u username -p password -d domain.tld -ns '+str(ipaddress))
     
 '''
 def metasploit():
