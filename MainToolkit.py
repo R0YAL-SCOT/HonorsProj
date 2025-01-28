@@ -11,16 +11,24 @@ def flags():
     #user input using params
     #Command line arguments creation and declaration
     parser = argparse.ArgumentParser(description="Python Penetration Testing Toolkit for Windows, Version: 1")
-
+    #args to use different functinos
     parser.add_argument("-O", metavar="function", required=False, help="Use OpenVAS")
     parser.add_argument("-B", metavar="function", required=False, help="Use BloodHound")
     parser.add_argument("-N", metavar="function", required=False, help="Use Nmap")
+    #target information
     parser.add_argument("-i", metavar="target", required=True, help="IP address or address range to be tested")
+    #domain name for bloodhound
+    #namerserver for bloohound
+
+    #file names (bloodhound might not be able to use this)
     parser.add_argument("-fN", metavar="file", required=True, help="Name of the output file for Nmap")
     parser.add_argument("-fO", metavar="file", required=True, help="Name of the output file for gvm")
     parser.add_argument("-fB", metavar="file", required=True, help="Name of the output file for Bloodhound")
-    parser.add_argument("-u", metavar="username", required=True, help="GVM account username")
-    parser.add_argument("-p", metavar="password", required=True, help="GVM account password")
+    #gvm account creds
+    parser.add_argument("--gvm-user", metavar="username", required=True, help="GVM account username")
+    parser.add_argument("--gvm-pass", metavar="password", required=True, help="GVM account password")
+    #bloodhound domain creds
+
 
     args = parser.parse_args()
     ipaddress = args.i
@@ -85,7 +93,7 @@ def bloodhound(ipaddress, filename):
 
     #output gives json files in working directory
     #regex file will need to find and grab all json files
-    
+
     
 '''
 def metasploit():
@@ -106,7 +114,3 @@ def metasploit():
 if __name__=="__main__":
     flags()
     
-    
-    #nmap()
-    #openVAS()
-    #metasploit()
