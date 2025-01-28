@@ -81,7 +81,7 @@ def bloodhound(ipaddress, filename):
     #the script could do it for the user but unsure
 
     #collect all information on domain
-    os.system('bloodhound-python -c All -u username -p password -d domain.tld -ns '+str(ipaddress))
+    os.system('bloodhound-python -d domain.tld -u username -p password -ns '+str(ipaddress)+' -ns nameserver -c All')
     
 '''
 def metasploit():
