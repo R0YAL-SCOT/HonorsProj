@@ -69,6 +69,7 @@ def gvm(username, password, ipaddress, filename):
     #https://github.com/greenbone/python-gvm
     #https://www.youtube.com/watch?v=J7SrS4qDzM0&t=95s - tutorial
     #start the gvm system
+    #use threads for different tasks
     os.system('gvm start')
 
     connection(username, password)
