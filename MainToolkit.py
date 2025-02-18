@@ -1,7 +1,7 @@
 #Penetration testing toolkit
 #Author: Andrew Walker
 
-from gvmConnectionScript import connection
+#from gvmConnectionScript import connection
 from getpass import getpass
 import argparse
 import os
