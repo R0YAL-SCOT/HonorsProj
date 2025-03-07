@@ -53,13 +53,13 @@ def nmap(ipaddress, filename):
     runNmap='nmap --script vuln --open -A -Pn -sT '+str(ipaddress)+' -oG '+chr(34)+filename+chr(34)
 
     #print(runNmap)
-    exit_code = os.system(runNmap)
-    exit_status = exit_code >> 8
-    if exit_status:
-        print("ERROR: Nmap failed to run")
-    exit(1)
+    # exit_code = os.system(runNmap)
+    # exit_status = exit_code >> 8
+    # if exit_status:
+    #     print("ERROR: Nmap failed to run")
+    # exit(1)
 
-    print("Info: Output can be found in " + filename)
+    # print("Info: Output can be found in " + filename)
 
 
 
