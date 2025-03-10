@@ -78,12 +78,12 @@ if __name__ == "__main__":
     #namerserver for bloohound
 
     #file names (bloodhound might not be able to use this)
-    parser.add_argument('-fN', metavar=' [file]', required=True, help='Name of the output file for Nmap')
-    parser.add_argument('-fO', metavar=' [file]', required=True, help='Name of the output file for gvm')
-    parser.add_argument('-fB', metavar=' [file]', required=True, help='Name of the output file for Bloodhound')
+    parser.add_argument('-fN', metavar=' [file]', required=False, help='Name of the output file for Nmap')
+    parser.add_argument('-fO', metavar=' [file]', required=False, help='Name of the output file for gvm')
+    parser.add_argument('-fB', metavar=' [file]', required=False, help='Name of the output file for Bloodhound')
     #gvm account creds
-    parser.add_argument('--gvm-user', metavar='[username]', required=True, help='GVM account username')
-    parser.add_argument('--gvm-pass', metavar='[password]', required=True, help='GVM account password')
+    parser.add_argument('-gU', metavar='[username]', required=False, help='GVM account username')
+    parser.add_argument('-gP', metavar='[password]', required=False, help='GVM account password')
     #bloodhound domain creds
 
 
@@ -92,8 +92,8 @@ if __name__ == "__main__":
     nmapFileName = args.fN
     openvasFileName = args.fO
     bloodhoundFileName = args.fB
-    gvmUser = args.u
-    gvmPass = args.p
+    gvmUser = args.gU
+    gvmPass = args.gP
 
     if args.O:
         gvm(gvmUser, gvmPass, ipaddress, openvasFileName)
