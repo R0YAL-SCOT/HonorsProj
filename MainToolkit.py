@@ -5,6 +5,7 @@
 from getpass import getpass
 import argparse
 import os
+import subprocess
 
 def flags():
 
@@ -50,17 +51,8 @@ def flags():
 
 def nmap(ipaddress, filename):
     #uses cve script and outputs results into a grepable file
-    runNmap='nmap --script vuln --open -A -Pn -sT '+str(ipaddress)+' -oG '+chr(34)+filename+chr(34)
-
-    #print(runNmap)
-    # exit_code = os.system(runNmap)
-    # exit_status = exit_code >> 8
-    # if exit_status:
-    #     print("ERROR: Nmap failed to run")
-    # exit(1)
-
-    # print("Info: Output can be found in " + filename)
-
+    scanNmap = subprocess.Popen(['nmap', '--script', 'vuln', '--open', '-A', '-Pn', '-sT', str(ipaddress),'-oG', str(filename)], stdout=subprocess.PIPE).stdout.read()
+    print(scanNmap)
 
 
 def gvm(username, password, ipaddress, filename):
@@ -72,7 +64,7 @@ def gvm(username, password, ipaddress, filename):
     #use threads for different tasks
     os.system('gvm start')
 
-    connection(username, password)
+    #connection(username, password)
     #create task and start
     #no target ID so it creates one
     os.system('gvm-cli ssh --gmp-username '+str(username)+' --gmp-password '+str(password)+' --xml "<create_task><name>vuln scan</name>><scanner id="08b69003-5fc2-4037-a479-93b440211c73"></create_task>" --host '+str(ipaddress))
@@ -90,7 +82,8 @@ def bloodhound(ipaddress, filename):
     #the script could do it for the user but unsure
 
     #collect all information on domain
-    os.system('bloodhound-python -d domain.tld -u username -p password -ns '+str(ipaddress)+' -ns nameserver -c All')
+    bH = subprocess.Popen(['bloodhound-python', '-d', 'domain.tld', '-u', 'username', '-p', 'password', '-ns', str(ipaddress), '-ns', 'nameserver', '-c', 'All'], stdout=subprocess.PIPE).stdout.read()
+    print(bH)
 
     #output gives json files in working directory
     #regex file will need to find and grab all json files
