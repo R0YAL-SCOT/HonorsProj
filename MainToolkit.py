@@ -67,23 +67,23 @@ def metasploit():
 if __name__ == "__main__":
     #user input using params
     #Command line arguments creation and declaration
-    parser = argparse.ArgumentParser(prog='Disseration Toolkit', usage='[options]')
+    parser = argparse.ArgumentParser(prog='Disseration Toolkit', usage='[options]', formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=27))
     #args to use different functinos
     parser.add_argument('-O', action='store_true', required=False, help='Use OpenVAS')
     parser.add_argument('-B', action='store_true', required=False, help='Use BloodHound')
     parser.add_argument('-N', action='store_true', required=False, help='Use Nmap')
     #target information
-    parser.add_argument('-i', metavar='target', required=True, help='IP address or address range to be tested')
+    parser.add_argument('-i', metavar=' [target]', required=True, help='IP address or address range to be tested')
     #domain name for bloodhound
     #namerserver for bloohound
 
     #file names (bloodhound might not be able to use this)
-    parser.add_argument('-fN', metavar='file', required=True, help='Name of the output file for Nmap')
-    parser.add_argument('-fO', metavar='file', required=True, help='Name of the output file for gvm')
-    parser.add_argument('-fB', metavar='file', required=True, help='Name of the output file for Bloodhound')
+    parser.add_argument('-fN', metavar=' [file]', required=True, help='Name of the output file for Nmap')
+    parser.add_argument('-fO', metavar=' [file]', required=True, help='Name of the output file for gvm')
+    parser.add_argument('-fB', metavar=' [file]', required=True, help='Name of the output file for Bloodhound')
     #gvm account creds
-    parser.add_argument('--gvm-user', metavar='username', required=True, help='GVM account username')
-    parser.add_argument('--gvm-pass', metavar='password', required=True, help='GVM account password')
+    parser.add_argument('--gvm-user', metavar='[username]', required=True, help='GVM account username')
+    parser.add_argument('--gvm-pass', metavar='[password]', required=True, help='GVM account password')
     #bloodhound domain creds
 
 
