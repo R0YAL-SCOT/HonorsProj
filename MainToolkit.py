@@ -7,47 +7,6 @@ import argparse
 import os
 import subprocess
 
-def flags():
-
-    #user input using params
-    #Command line arguments creation and declaration
-    parser = argparse.ArgumentParser(description="Python Penetration Testing Toolkit for Windows, Version: 1")
-    #args to use different functinos
-    parser.add_argument("-O", metavar="function", action='store_true', required=False, help="Use OpenVAS")
-    parser.add_argument("-B", metavar="function", action='store_true', required=False, help="Use BloodHound")
-    parser.add_argument("-N", metavar="function", action='store_true', required=False, help="Use Nmap")
-    #target information
-    parser.add_argument("-i", metavar="target", required=True, help="IP address or address range to be tested")
-    #domain name for bloodhound
-    #namerserver for bloohound
-
-    #file names (bloodhound might not be able to use this)
-    parser.add_argument("-fN", metavar="file", required=True, help="Name of the output file for Nmap")
-    parser.add_argument("-fO", metavar="file", required=True, help="Name of the output file for gvm")
-    parser.add_argument("-fB", metavar="file", required=True, help="Name of the output file for Bloodhound")
-    #gvm account creds
-    parser.add_argument("--gvm-user", metavar="username", required=True, help="GVM account username")
-    parser.add_argument("--gvm-pass", metavar="password", required=True, help="GVM account password")
-    #bloodhound domain creds
-
-
-    args = parser.parse_args()
-    ipaddress = args.i
-    nmapFileName = args.fN
-    openvasFileName = args.fO
-    bloodhoundFileName = args.fB
-    gvmUser = args.u
-    gvmPass = args.p
-
-    if args.O:
-        gvm(gvmUser, gvmPass, ipaddress, openvasFileName)
-    
-    if args.B:
-        bloodhound(ipaddress, bloodhoundFileName)
-
-    if args.N:
-        nmap(ipaddress, nmapFileName)
-
 
 def nmap(ipaddress, filename):
     #uses cve script and outputs results into a grepable file
@@ -105,6 +64,43 @@ def metasploit():
     
 '''
 
-if __name__=="__main__":
-    flags()
+if __name__ == "__main__":
+    #user input using params
+    #Command line arguments creation and declaration
+    parser = argparse.ArgumentParser(description="Python Penetration Testing Toolkit for Windows, Version: 1")
+    #args to use different functinos
+    parser.add_argument("-O", metavar="function", action='store_true', required=False, help="Use OpenVAS")
+    parser.add_argument("-B", metavar="function", action='store_true', required=False, help="Use BloodHound")
+    parser.add_argument("-N", metavar="function", action='store_true', required=False, help="Use Nmap")
+    #target information
+    parser.add_argument("-i", metavar="target", required=True, help="IP address or address range to be tested")
+    #domain name for bloodhound
+    #namerserver for bloohound
+
+    #file names (bloodhound might not be able to use this)
+    parser.add_argument("-fN", metavar="file", required=True, help="Name of the output file for Nmap")
+    parser.add_argument("-fO", metavar="file", required=True, help="Name of the output file for gvm")
+    parser.add_argument("-fB", metavar="file", required=True, help="Name of the output file for Bloodhound")
+    #gvm account creds
+    parser.add_argument("--gvm-user", metavar="username", required=True, help="GVM account username")
+    parser.add_argument("--gvm-pass", metavar="password", required=True, help="GVM account password")
+    #bloodhound domain creds
+
+
+    args = parser.parse_args()
+    ipaddress = args.i
+    nmapFileName = args.fN
+    openvasFileName = args.fO
+    bloodhoundFileName = args.fB
+    gvmUser = args.u
+    gvmPass = args.p
+
+    if args.O:
+        gvm(gvmUser, gvmPass, ipaddress, openvasFileName)
+    
+    if args.B:
+        bloodhound(ipaddress, bloodhoundFileName)
+
+    if args.N:
+        nmap(ipaddress, nmapFileName)
     
