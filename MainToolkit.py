@@ -10,8 +10,12 @@ import subprocess
 
 def nmap(ipaddress, filename):
     #uses cve script and outputs results into a grepable file
-    scanNmap = subprocess.Popen(['nmap', '--script', 'vuln', '--open', '-A', '-Pn', '-sT', str(ipaddress),'-oG', str(filename)], stdout=subprocess.PIPE).stdout.read()
-    print(scanNmap)
+    try:
+        scanNmap = subprocess.Popen(['nmap', '--script', 'vuln', '--open', '-A', '-Pn', '-sT', str(ipaddress),'-oG', str(filename)], stdout=subprocess.PIPE).stdout.read()
+        print(scanNmap)
+    
+    except subprocess.CalledProcessError as err:
+        print("Nmap has failed with return code:  {err.returncode}")
 
 
 def gvm(username, password, ipaddress, filename):
