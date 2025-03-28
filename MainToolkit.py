@@ -11,7 +11,7 @@ import subprocess
 def nmap(ipaddress, filename):
     #uses cve script and outputs results into a grepable file
     try:
-        scanNmap = subprocess.Popen(['nmap','--script','vuln','--open','-A','-Pn','-sT',str(ipaddress),'-oG',str(filename)],stdout=subprocess.PIPE).stdout.read()
+        scanNmap = subprocess.Popen(['nmap', '--script', 'vuln', '--open', '-A', '-Pn', '-O', '-sV', '-sT', str(ipaddress),'-oG', str(filename)], stdout=subprocess.PIPE).stdout.read()
         print(scanNmap)
     
     except subprocess.CalledProcessError as err:
