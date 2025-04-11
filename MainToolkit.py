@@ -45,7 +45,7 @@ def bloodhound(ipaddress, filename):
     #the script could do it for the user but unsure
 
     #collect all information on domain
-    bH = subprocess.Popen(['bloodhound-python', '-d', 'domain.tld', '-u', 'username', '-p', 'password', '-ns', str(ipaddress), '-ns', 'nameserver', '-c', 'All'], stdout=subprocess.PIPE).stdout.read()
+    bH = subprocess.Popen(["bloodhound-python", "-d", "domain.tld", "-u", "username", "-p", "password", "-ns", str(ipaddress), "-ns", "nameserver", "c", "All"], stdout=subprocess.PIPE).stdout.read()
     print(bH)
 
     #output gives json files in working directory
