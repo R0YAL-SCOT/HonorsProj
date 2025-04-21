@@ -38,15 +38,19 @@ def gvm(username, password, ipaddress, filename):
     os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/pdf-report.gmp.py <report_id> <pdf_file>')
 
 
-def bloodhound(ipaddress, filename):
+def bloodhound(ipaddress, username, password, domain):
     
     #download bloodhound ce and run using os library
     #system needs to pip install or git clone bloodhound-ce before it can be used
     #the script could do it for the user but unsure
 
     #collect all information on domain
-    bH = subprocess.Popen(["bloodhound-python", "-d", "domain.tld", "-u", "username", "-p", "password", "-ns", str(ipaddress), "-ns", "nameserver", "c", "All"], stdout=subprocess.PIPE).stdout.read()
-    print(bH)
+    try:
+        bH = subprocess.Popen(["bloodhound-python", "-u", str(username), "-p", str(password), "-d", str(domain), "-ns", str(ipaddress), "c", "All"], stdout=subprocess.PIPE).stdout.read()
+        print(bH)
+
+    except subprocess.CalledProcessError as err:
+        print("Bloodhound-python has failed with return code:  {err.returncode}")
 
     #output gives json files in working directory
     #regex file will need to find and grab all json files
@@ -84,27 +88,34 @@ if __name__ == "__main__":
     #file names (bloodhound might not be able to use this)
     parser.add_argument('-fN', metavar=' [file]', required=False, help='Name of the output file for Nmap')
     parser.add_argument('-fO', metavar=' [file]', required=False, help='Name of the output file for gvm')
-    parser.add_argument('-fB', metavar=' [file]', required=False, help='Name of the output file for Bloodhound')
     #gvm account creds
     parser.add_argument('-gU', metavar='[username]', required=False, help='GVM account username')
     parser.add_argument('-gP', metavar='[password]', required=False, help='GVM account password')
     #bloodhound domain creds
+    parser.add_argument('-bhU', metavar='[username]', required=False, help='Bloodhound account username')
+    parser.add_argument('-bhP', metavar='[password]', required=False, help='Bloodhound account password')
+    parser.add_argument('-bhD', metavar='[domain]', required=False, help='Bloodhound domain')
+
 
 
     args = parser.parse_args()
     ipaddress = args.i
     nmapFileName = args.fN
     openvasFileName = args.fO
-    bloodhoundFileName = args.fB
     gvmUser = args.gU
     gvmPass = args.gP
+    bhUser = args.bhU
+    bhPass = args.bhP
+    bhDom = args.bhD
+
+    if args.N:
+        nmap(ipaddress, nmapFileName)
 
     if args.O:
         gvm(gvmUser, gvmPass, ipaddress, openvasFileName)
     
     if args.B:
-        bloodhound(ipaddress, bloodhoundFileName)
+        bloodhound(ipaddress, bhUser, bhPass, bhDom)
 
-    if args.N:
-        nmap(ipaddress, nmapFileName)
+
     
