@@ -76,27 +76,27 @@ if __name__ == "__main__":
     #user input using params
     #Command line arguments creation and declaration
     parser = argparse.ArgumentParser(prog='Disseration Toolkit', usage='[options]', formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=27))
+
     #args to use different functinos
     parser.add_argument('-O', action='store_true', required=False, help='Use OpenVAS')
     parser.add_argument('-B', action='store_true', required=False, help='Use BloodHound')
     parser.add_argument('-N', action='store_true', required=False, help='Use Nmap')
-    #target information
+
+    #target information(nameserver for Bloodhound)
     parser.add_argument('-i', metavar=' [target]', required=True, help='IP address or address range to be tested')
-    #domain name for bloodhound
-    #namerserver for bloohound
 
     #file names (bloodhound might not be able to use this)
     parser.add_argument('-fN', metavar=' [file]', required=False, help='Name of the output file for Nmap')
     parser.add_argument('-fO', metavar=' [file]', required=False, help='Name of the output file for gvm')
+
     #gvm account creds
     parser.add_argument('-gU', metavar='[username]', required=False, help='GVM account username')
     parser.add_argument('-gP', metavar='[password]', required=False, help='GVM account password')
+
     #bloodhound domain creds
     parser.add_argument('-bhU', metavar='[username]', required=False, help='Bloodhound account username')
     parser.add_argument('-bhP', metavar='[password]', required=False, help='Bloodhound account password')
     parser.add_argument('-bhD', metavar='[domain]', required=False, help='Bloodhound domain')
-
-
 
     args = parser.parse_args()
     ipaddress = args.i
