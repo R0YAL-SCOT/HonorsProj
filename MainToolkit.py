@@ -42,11 +42,11 @@ def bloodhound(ipaddress, username, password, domain):
     
     #download bloodhound ce and run using os library
     #system needs to pip install or git clone bloodhound-ce before it can be used
-    #the script could do it for the user but unsure
 
     #collect all information on domain
+    #username and password must be known before running this command
     try:
-        bH = subprocess.Popen(["bloodhound-python", "-u", str(username), "-p", str(password), "-d", str(domain), "-ns", str(ipaddress), "c", "All"], stdout=subprocess.PIPE).stdout.read()
+        bH = subprocess.Popen(["bloodhound-python", "-u", str(username), "-p", str(password), "-d", str(domain), "-ns", str(ipaddress), "-c", "All"], stdout=subprocess.PIPE).stdout.read()
         print(bH)
 
     except subprocess.CalledProcessError as err:
