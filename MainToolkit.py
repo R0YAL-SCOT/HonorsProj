@@ -18,6 +18,35 @@ def nmap(ipaddress, filename):
         print("Nmap has failed with return code:  {err.returncode}")
 
 
+def lynis(ipaddress):
+    #set for a remote host using IP address but could be used for local host but the nature of this toolkit means this wouldn't happen.
+    #Using the pentest option with no output and no log file to reduce the amount of unneeded information
+    try:
+        lynis = subprocess.Popen(["lynis", "audit system remote", str(ipaddress), "--pentest", "--quiet", "--no-log" ], stdout=subprocess.PIPE).stdout.read()
+        print(lynis)
+    
+    except subprocess.CalledProcessError as err:
+        print("Lynis has failed with return code:  {err.returncode}")
+
+
+def bloodhound(ipaddress, username, password, domain):
+    
+    #download bloodhound ce and run using os library
+    #system needs to pip install or git clone bloodhound-ce before it can be used
+
+    #collect all information on domain
+    #username and password must be known before running this command
+    try:
+        bH = subprocess.Popen(["bloodhound-python", "-u", str(username), "-p", str(password), "-d", str(domain), "-ns", str(ipaddress), "-c", "All"], stdout=subprocess.PIPE).stdout.read()
+        print(bH)
+
+    except subprocess.CalledProcessError as err:
+        print("Bloodhound-python has failed with return code:  {err.returncode}")
+
+    #output gives json files in working directory
+    #regex file will need to find and grab all json files
+
+'''
 def gvm(username, password, ipaddress, filename):
     #need to have gvm scripts from github in the local directory or a full path to them
     #run 'python3 -m pip install --user python-gvm' to use the gvm python library
@@ -38,25 +67,6 @@ def gvm(username, password, ipaddress, filename):
     os.system('gvm-script --gmp-username name --gmp-password pass ssh --hostname <gsm> scripts/pdf-report.gmp.py <report_id> <pdf_file>')
 
 
-def bloodhound(ipaddress, username, password, domain):
-    
-    #download bloodhound ce and run using os library
-    #system needs to pip install or git clone bloodhound-ce before it can be used
-
-    #collect all information on domain
-    #username and password must be known before running this command
-    try:
-        bH = subprocess.Popen(["bloodhound-python", "-u", str(username), "-p", str(password), "-d", str(domain), "-ns", str(ipaddress), "-c", "All"], stdout=subprocess.PIPE).stdout.read()
-        print(bH)
-
-    except subprocess.CalledProcessError as err:
-        print("Bloodhound-python has failed with return code:  {err.returncode}")
-
-    #output gives json files in working directory
-    #regex file will need to find and grab all json files
-
-    
-'''
 def metasploit():
 
     #start with finding nmap file and using reg ex to find CVE codes
@@ -78,7 +88,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='Disseration Toolkit', usage='[options]', formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=27))
 
     #args to use different functinos
-    parser.add_argument('-O', action='store_true', required=False, help='Use OpenVAS')
+    parser.add_argument('-L', action='store_true', required=False, help='Use Lynis')
     parser.add_argument('-B', action='store_true', required=False, help='Use BloodHound')
     parser.add_argument('-N', action='store_true', required=False, help='Use Nmap')
 
@@ -89,10 +99,6 @@ if __name__ == "__main__":
     parser.add_argument('-fN', metavar=' [file]', required=False, help='Name of the output file for Nmap')
     parser.add_argument('-fO', metavar=' [file]', required=False, help='Name of the output file for gvm')
 
-    #gvm account creds
-    parser.add_argument('-gU', metavar='[username]', required=False, help='GVM account username')
-    parser.add_argument('-gP', metavar='[password]', required=False, help='GVM account password')
-
     #bloodhound domain creds
     parser.add_argument('-bhU', metavar='[username]', required=False, help='Bloodhound account username')
     parser.add_argument('-bhP', metavar='[password]', required=False, help='Bloodhound account password')
@@ -101,9 +107,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     ipaddress = args.i
     nmapFileName = args.fN
-    openvasFileName = args.fO
-    gvmUser = args.gU
-    gvmPass = args.gP
     bhUser = args.bhU
     bhPass = args.bhP
     bhDom = args.bhD
@@ -111,8 +114,8 @@ if __name__ == "__main__":
     if args.N:
         nmap(ipaddress, nmapFileName)
 
-    if args.O:
-        gvm(gvmUser, gvmPass, ipaddress, openvasFileName)
+    if args.L:
+        lynis(ipaddress)
     
     if args.B:
         bloodhound(ipaddress, bhUser, bhPass, bhDom)
