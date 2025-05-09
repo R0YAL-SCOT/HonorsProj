@@ -3,6 +3,7 @@
 
 #from gvmConnectionScript import connection
 from getpass import getpass
+from regexReport import makeEnumReport
 import argparse
 import os
 import subprocess
@@ -119,6 +120,8 @@ if __name__ == "__main__":
     
     if args.B:
         bloodhound(ipaddress, bhUser, bhPass, bhDom)
+
+    makeEnumReport()
 
 
     
