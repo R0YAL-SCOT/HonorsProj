@@ -98,7 +98,6 @@ if __name__ == "__main__":
 
     #file names (bloodhound might not be able to use this)
     parser.add_argument('-fN', metavar=' [file]', required=False, help='Name of the output file for Nmap')
-    parser.add_argument('-fO', metavar=' [file]', required=False, help='Name of the output file for gvm')
 
     #bloodhound domain creds
     parser.add_argument('-bhU', metavar='[username]', required=False, help='Bloodhound account username')
