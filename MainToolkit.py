@@ -23,7 +23,7 @@ def lynis(ipaddress):
     #set for a remote host using IP address but could be used for local host but the nature of this toolkit means this wouldn't happen.
     #Using the pentest option with no output and no log file to reduce the amount of unneeded information
     try:
-        lynis = subprocess.Popen(["lynis", "audit system remote", str(ipaddress), "--pentest", "--quiet", "--no-log" ], stdout=subprocess.PIPE).stdout.read()
+        lynis = subprocess.Popen(["lynis", "audit system remote", str(ipaddress), "--pentest", "--quiet"], stdout=subprocess.PIPE).stdout.read()
         print(lynis)
     
     except subprocess.CalledProcessError as err:
